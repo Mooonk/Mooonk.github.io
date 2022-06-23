@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍这个是ipfs+fabric的一个医疗数据传输平台 有非对称加密 可以自己感受一下 后期可以和自己的访问控制结合 下载步骤安装Airmed-Foundation项目先到自己的目录下，这里我使用的是github.com文件夹目录 123git clone https:&#x2F;&#x2F;gitee.com&#x2F;shuang112&#x2F;airmedfoundation-terminal.gitcd airmedfound">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【IPFS】Airmed Foundation">
+<meta property="og:url" content="http://example.com/2022/06/12/%E3%80%90IPFS%E3%80%91Airmed-Foundation/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="介绍这个是ipfs+fabric的一个医疗数据传输平台 有非对称加密 可以自己感受一下 后期可以和自己的访问控制结合 下载步骤安装Airmed-Foundation项目先到自己的目录下，这里我使用的是github.com文件夹目录 123git clone https:&#x2F;&#x2F;gitee.com&#x2F;shuang112&#x2F;airmedfoundation-terminal.gitcd airmedfound">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-12T10:50:40.000Z">
+<meta property="article:modified_time" content="2022-06-18T05:16:38.035Z">
+<meta property="article:author" content="Monk">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/12/%E3%80%90IPFS%E3%80%91Airmed-Foundation/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/12/%E3%80%90IPFS%E3%80%91Airmed-Foundation/","path":"2022/06/12/【IPFS】Airmed-Foundation/","title":"【IPFS】Airmed Foundation"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【IPFS】Airmed Foundation | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">下载步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Airmed-Foundation%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.1.</span> <span class="nav-text">安装Airmed-Foundation项目</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Monk</p>
+  <div class="site-description" itemprop="description">Monk的笔记记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/12/%E3%80%90IPFS%E3%80%91Airmed-Foundation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Monk">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="Monk的笔记记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【IPFS】Airmed Foundation | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【IPFS】Airmed Foundation
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-12 18:50:40" itemprop="dateCreated datePublished" datetime="2022-06-12T18:50:40+08:00">2022-06-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-18 13:16:38" itemprop="dateModified" datetime="2022-06-18T13:16:38+08:00">2022-06-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>这个是ipfs+fabric的一个医疗数据传输平台 有非对称加密 可以自己感受一下 后期可以和自己的访问控制结合</p>
+<h2 id="下载步骤"><a href="#下载步骤" class="headerlink" title="下载步骤"></a>下载步骤</h2><h3 id="安装Airmed-Foundation项目"><a href="#安装Airmed-Foundation项目" class="headerlink" title="安装Airmed-Foundation项目"></a>安装Airmed-Foundation项目</h3><p>先到自己的目录下，这里我使用的是github.com文件夹目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://gitee.com/shuang112/airmedfoundation-terminal.git</span><br><span class="line"><span class="built_in">cd</span> airmedfoundation-terminal</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>这时遇见报错，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code 1</span><br><span class="line">npm ERR! path /Users/monk/code/go/src/github.com/airmedfoundation-terminal/node_modules/sleep</span><br><span class="line">npm ERR! <span class="built_in">command</span> failed</span><br><span class="line">npm ERR! <span class="built_in">command</span> sh -c node-gyp rebuild</span><br><span class="line">npm ERR! CXX(target) Release/obj.target/node_sleep/sleep.o</span><br><span class="line">npm ERR! gyp info it worked <span class="keyword">if</span> it ends with ok</span><br><span class="line">npm ERR! gyp info using node-gyp@8.4.1</span><br><span class="line">npm ERR! gyp info using node@16.14.2 | darwin | arm64</span><br><span class="line">npm ERR! gyp info find Python using Python version 3.8.9 found at <span class="string">&quot;/Library/Developer/CommandLineTools/usr/bin/python3&quot;</span></span><br><span class="line">npm ERR! gyp info spawn /Library/Developer/CommandLineTools/usr/bin/python3</span><br><span class="line">npm ERR! gyp info spawn args [</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/usr/local/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;binding.gyp&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-f&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;make&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/Users/monk/code/go/src/github.com/airmedfoundation-terminal/node_modules/sleep/build/config.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/usr/local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/Users/monk/Library/Caches/node-gyp/16.14.2/include/node/common.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dlibrary=shared_library&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dvisibility=default&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_root_dir=/Users/monk/Library/Caches/node-gyp/16.14.2&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_gyp_dir=/usr/local/lib/node_modules/npm/node_modules/node-gyp&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_lib_file=/Users/monk/Library/Caches/node-gyp/16.14.2/&lt;(target_arch)/node.lib&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dmodule_root_dir=/Users/monk/code/go/src/github.com/airmedfoundation-terminal/node_modules/sleep&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_engine=v8&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--depth=.&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--no-parallel&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--generator-output&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;build&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Goutput_dir=.&#x27;</span></span><br><span class="line">npm ERR! gyp info spawn args ]</span><br><span class="line">npm ERR! gyp info spawn make</span><br><span class="line">npm ERR! gyp info spawn args [ <span class="string">&#x27;BUILDTYPE=Release&#x27;</span>, <span class="string">&#x27;-C&#x27;</span>, <span class="string">&#x27;build&#x27;</span> ]</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:222:</span><br><span class="line">npm ERR! In file included from ../../nan/nan_converters.h:67:</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:22:1: error: no viable conversion from <span class="string">&#x27;Local&lt;v8::Context&gt;&#x27;</span> to <span class="string">&#x27;v8::Isolate *&#x27;</span></span><br><span class="line">npm ERR! X(Boolean)</span><br><span class="line">npm ERR! ^~~~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:18:23: note: expanded from macro <span class="string">&#x27;X&#x27;</span></span><br><span class="line">npm ERR!       val-&gt;To <span class="comment">## TYPE(isolate-&gt;GetCurrentContext())                            \</span></span><br><span class="line">npm ERR!                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:3086:37: note: passing argument to parameter <span class="string">&#x27;isolate&#x27;</span> here</span><br><span class="line">npm ERR!   Local&lt;Boolean&gt; ToBoolean(Isolate* isolate) const;</span><br><span class="line">npm ERR!                                     ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:222:</span><br><span class="line">npm ERR! In file included from ../../nan/nan_converters.h:67:</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:22:1: error: no member named <span class="string">&#x27;FromMaybe&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;v8::Local&lt;v8::Boolean&gt;&#x27;</span></span><br><span class="line">npm ERR! X(Boolean)</span><br><span class="line">npm ERR! ^~~~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:19:12: note: expanded from macro <span class="string">&#x27;X&#x27;</span></span><br><span class="line">npm ERR!           .FromMaybe(v8::Local&lt;v8::TYPE&gt;()));                                  \</span><br><span class="line">npm ERR!            ^</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:40:1: error: no viable conversion from <span class="string">&#x27;Local&lt;v8::Context&gt;&#x27;</span> to <span class="string">&#x27;v8::Isolate *&#x27;</span></span><br><span class="line">npm ERR! X(bool, Boolean)</span><br><span class="line">npm ERR! ^~~~~~~~~~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:37:29: note: expanded from macro <span class="string">&#x27;X&#x27;</span></span><br><span class="line">npm ERR!   <span class="built_in">return</span> val-&gt;NAME <span class="comment">## Value(isolate-&gt;GetCurrentContext());                     \</span></span><br><span class="line">npm ERR!                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:3096:30: note: passing argument to parameter <span class="string">&#x27;isolate&#x27;</span> here</span><br><span class="line">npm ERR!   bool BooleanValue(Isolate* isolate) const;</span><br><span class="line">npm ERR!                              ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:222:</span><br><span class="line">npm ERR! In file included from ../../nan/nan_converters.h:67:</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:40:1: error: no viable conversion from returned value of <span class="built_in">type</span> <span class="string">&#x27;bool&#x27;</span> to <span class="keyword">function</span> <span class="built_in">return</span> <span class="built_in">type</span> <span class="string">&#x27;imp::ToFactory&lt;bool&gt;::return_t&#x27;</span> (aka <span class="string">&#x27;Maybe&lt;bool&gt;&#x27;</span>)</span><br><span class="line">npm ERR! X(bool, Boolean)</span><br><span class="line">npm ERR! ^~~~~~~~~~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_converters_43_inl.h:37:10: note: expanded from macro <span class="string">&#x27;X&#x27;</span></span><br><span class="line">npm ERR!   <span class="built_in">return</span> val-&gt;NAME <span class="comment">## Value(isolate-&gt;GetCurrentContext());                     \</span></span><br><span class="line">npm ERR!          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:10437:7: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from <span class="string">&#x27;bool&#x27;</span> to <span class="string">&#x27;const v8::Maybe&lt;bool&gt; &amp;&#x27;</span> <span class="keyword">for</span> 1st argument</span><br><span class="line">npm ERR! class Maybe &#123;</span><br><span class="line">npm ERR!       ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:10437:7: note: candidate constructor (the implicit move constructor) not viable: no known conversion from <span class="string">&#x27;bool&#x27;</span> to <span class="string">&#x27;v8::Maybe&lt;bool&gt; &amp;&amp;&#x27;</span> <span class="keyword">for</span> 1st argument</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:10492:12: note: explicit constructor is not a candidate</span><br><span class="line">npm ERR!   explicit Maybe(const T&amp; t) : has_value_(<span class="literal">true</span>), value_(t) &#123;&#125;</span><br><span class="line">npm ERR!            ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:223:</span><br><span class="line">npm ERR! In file included from ../../nan/nan_new.h:189:</span><br><span class="line">npm ERR! ../../nan/nan_implementation_12_inl.h:356:37: error: too few arguments to <span class="keyword">function</span> call, expected 2, have 1</span><br><span class="line">npm ERR!   <span class="built_in">return</span> v8::StringObject::New(value).As&lt;v8::StringObject&gt;();</span><br><span class="line">npm ERR!          ~~~~~~~~~~~~~~~~~~~~~      ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:6196:23: note: <span class="string">&#x27;New&#x27;</span> declared here</span><br><span class="line">npm ERR!   static Local&lt;Value&gt; New(Isolate* isolate, Local&lt;String&gt; value);</span><br><span class="line">npm ERR!                       ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:2722:</span><br><span class="line">npm ERR! ../../nan/nan_object_wrap.h:24:25: error: no member named <span class="string">&#x27;IsNearDeath&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;Nan::Persistent&lt;v8::Object&gt;&#x27;</span></span><br><span class="line">npm ERR!     assert(persistent().IsNearDeath());</span><br><span class="line">npm ERR!            ~~~~~~~~~~~~ ^</span><br><span class="line">npm ERR! /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h:99:25: note: expanded from macro <span class="string">&#x27;assert&#x27;</span></span><br><span class="line">npm ERR!     (__builtin_expect(!(e), 0) ? __assert_rtn(__func__, __ASSERT_FILE_NAME, __LINE__, <span class="comment">#e) : (void)0)</span></span><br><span class="line">npm ERR!                         ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:2722:</span><br><span class="line">npm ERR! ../../nan/nan_object_wrap.h:127:26: error: no member named <span class="string">&#x27;IsNearDeath&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;Nan::Persistent&lt;v8::Object&gt;&#x27;</span></span><br><span class="line">npm ERR!     assert(wrap-&gt;handle_.IsNearDeath());</span><br><span class="line">npm ERR!            ~~~~~~~~~~~~~ ^</span><br><span class="line">npm ERR! /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h:99:25: note: expanded from macro <span class="string">&#x27;assert&#x27;</span></span><br><span class="line">npm ERR!     (__builtin_expect(!(e), 0) ? __assert_rtn(__func__, __ASSERT_FILE_NAME, __LINE__, <span class="comment">#e) : (void)0)</span></span><br><span class="line">npm ERR!                         ^</span><br><span class="line">npm ERR! In file included from ../sleep.cc:2:</span><br><span class="line">npm ERR! In file included from ../../nan/nan.h:2818:</span><br><span class="line">npm ERR! ../../nan/nan_typedarray_contents.h:34:43: warning: <span class="string">&#x27;GetContents&#x27;</span> is deprecated: Use GetBackingStore. See http://crbug.com/v8/9908. [-Wdeprecated-declarations]</span><br><span class="line">npm ERR!       data   = static_cast&lt;char*&gt;(buffer-&gt;GetContents().Data()) + byte_offset;</span><br><span class="line">npm ERR!                                           ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:5614:3: note: <span class="string">&#x27;GetContents&#x27;</span> has been explicitly marked deprecated here</span><br><span class="line">npm ERR!   V8_DEPRECATED(<span class="string">&quot;Use GetBackingStore. See http://crbug.com/v8/9908.&quot;</span>)</span><br><span class="line">npm ERR!   ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8config.h:454:35: note: expanded from macro <span class="string">&#x27;V8_DEPRECATED&#x27;</span></span><br><span class="line">npm ERR! <span class="comment"># define V8_DEPRECATED(message) [[deprecated(message)]]</span></span><br><span class="line">npm ERR!                                   ^</span><br><span class="line">npm ERR! ../sleep.cc:6:11: error: no member named <span class="string">&#x27;Handle&#x27;</span> <span class="keyword">in</span> namespace <span class="string">&#x27;v8&#x27;</span></span><br><span class="line">npm ERR! using v8::Handle;</span><br><span class="line">npm ERR!       ~~~~^</span><br><span class="line">npm ERR! ../sleep.cc:103:53: error: too few arguments to <span class="keyword">function</span> call, single argument <span class="string">&#x27;context&#x27;</span> was not specified</span><br><span class="line">npm ERR!     Nan::New&lt;FunctionTemplate&gt;(MSleep)-&gt;GetFunction());</span><br><span class="line">npm ERR!     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:6802:46: note: <span class="string">&#x27;GetFunction&#x27;</span> declared here</span><br><span class="line">npm ERR!   V8_WARN_UNUSED_RESULT MaybeLocal&lt;Function&gt; GetFunction(</span><br><span class="line">npm ERR!                                              ^</span><br><span class="line">npm ERR! ../sleep.cc:102:3: error: no matching <span class="keyword">function</span> <span class="keyword">for</span> call to <span class="string">&#x27;Set&#x27;</span></span><br><span class="line">npm ERR!   Nan::Set(target, Nan::New&lt;String&gt;(<span class="string">&quot;sleep&quot;</span>).ToLocalChecked(),</span><br><span class="line">npm ERR!   ^~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_maybe_43_inl.h:87:20: note: candidate <span class="keyword">function</span> not viable: no known conversion from <span class="string">&#x27;MaybeLocal&lt;v8::Function&gt;&#x27;</span> to <span class="string">&#x27;v8::Local&lt;v8::Value&gt;&#x27;</span> <span class="keyword">for</span> 3rd argument</span><br><span class="line">npm ERR! inline Maybe&lt;bool&gt; Set(</span><br><span class="line">npm ERR!                    ^</span><br><span class="line">npm ERR! ../../nan/nan_maybe_43_inl.h:96:20: note: candidate <span class="keyword">function</span> not viable: no known conversion from <span class="string">&#x27;Local&lt;v8::String&gt;&#x27;</span> to <span class="string">&#x27;uint32_t&#x27;</span> (aka <span class="string">&#x27;unsigned int&#x27;</span>) <span class="keyword">for</span> 2nd argument</span><br><span class="line">npm ERR! inline Maybe&lt;bool&gt; Set(</span><br><span class="line">npm ERR!                    ^</span><br><span class="line">npm ERR! ../sleep.cc:105:54: error: too few arguments to <span class="keyword">function</span> call, single argument <span class="string">&#x27;context&#x27;</span> was not specified</span><br><span class="line">npm ERR!     Nan::New&lt;FunctionTemplate&gt;(MUSleep)-&gt;GetFunction());</span><br><span class="line">npm ERR!     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^</span><br><span class="line">npm ERR! /Users/monk/Library/Caches/node-gyp/16.14.2/include/node/v8.h:6802:46: note: <span class="string">&#x27;GetFunction&#x27;</span> declared here</span><br><span class="line">npm ERR!   V8_WARN_UNUSED_RESULT MaybeLocal&lt;Function&gt; GetFunction(</span><br><span class="line">npm ERR!                                              ^</span><br><span class="line">npm ERR! ../sleep.cc:104:3: error: no matching <span class="keyword">function</span> <span class="keyword">for</span> call to <span class="string">&#x27;Set&#x27;</span></span><br><span class="line">npm ERR!   Nan::Set(target, Nan::New&lt;String&gt;(<span class="string">&quot;usleep&quot;</span>).ToLocalChecked(),</span><br><span class="line">npm ERR!   ^~~~~~~~</span><br><span class="line">npm ERR! ../../nan/nan_maybe_43_inl.h:87:20: note: candidate <span class="keyword">function</span> not viable: no known conversion from <span class="string">&#x27;MaybeLocal&lt;v8::Function&gt;&#x27;</span> to <span class="string">&#x27;v8::Local&lt;v8::Value&gt;&#x27;</span> <span class="keyword">for</span> 3rd argument</span><br><span class="line">npm ERR! inline Maybe&lt;bool&gt; Set(</span><br><span class="line">npm ERR!                    ^</span><br><span class="line">npm ERR! ../../nan/nan_maybe_43_inl.h:96:20: note: candidate <span class="keyword">function</span> not viable: no known conversion from <span class="string">&#x27;Local&lt;v8::String&gt;&#x27;</span> to <span class="string">&#x27;uint32_t&#x27;</span> (aka <span class="string">&#x27;unsigned int&#x27;</span>) <span class="keyword">for</span> 2nd argument</span><br><span class="line">npm ERR! inline Maybe&lt;bool&gt; Set(</span><br><span class="line">npm ERR!                    ^</span><br><span class="line">npm ERR! 1 warning and 12 errors generated.</span><br><span class="line">npm ERR! make: *** [Release/obj.target/node_sleep/sleep.o] Error 1</span><br><span class="line">npm ERR! gyp ERR! build error </span><br><span class="line">npm ERR! gyp ERR! stack Error: `make` failed with <span class="built_in">exit</span> code: 2</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.onExit (/usr/local/lib/node_modules/npm/node_modules/node-gyp/lib/build.js:194:23)</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.emit (node:events:526:28)</span><br><span class="line">npm ERR! gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:291:12)</span><br><span class="line">npm ERR! gyp ERR! System Darwin 21.4.0</span><br><span class="line">npm ERR! gyp ERR! <span class="built_in">command</span> <span class="string">&quot;/usr/local/bin/node&quot;</span> <span class="string">&quot;/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span></span><br><span class="line">npm ERR! gyp ERR! cwd /Users/monk/code/go/src/github.com/airmedfoundation-terminal/node_modules/sleep</span><br><span class="line">npm ERR! gyp ERR! node -v v16.14.2</span><br><span class="line">npm ERR! gyp ERR! node-gyp -v v8.4.1</span><br><span class="line">npm ERR! gyp ERR! not ok</span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     /Users/monk/.npm/_logs/2022-06-18T04_19_03_833Z-debug-0.log</span><br></pre></td></tr></table></figure>
+
+<p>尝试解决，参照<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/262380">这篇文章</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm cache clean -force</span><br><span class="line"><span class="built_in">rm</span> -rf node_modules node_modules -lock.json</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>此时出现新报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ERR_SOCKET_TIMEOUT</span><br><span class="line">npm ERR! errno ERR_SOCKET_TIMEOUT</span><br><span class="line">npm ERR! network Invalid response body <span class="keyword">while</span> trying to fetch https://registry.npmjs.org/mkdirp: Socket <span class="built_in">timeout</span></span><br><span class="line">npm ERR! network This is a problem related to network connectivity.</span><br><span class="line">npm ERR! network In most cases you are behind a proxy or have bad network settings.</span><br><span class="line">npm ERR! network </span><br><span class="line">npm ERR! network If you are behind a proxy, please make sure that the</span><br><span class="line">npm ERR! network <span class="string">&#x27;proxy&#x27;</span> config is <span class="built_in">set</span> properly.  See: <span class="string">&#x27;npm help config&#x27;</span></span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     /Users/monk/.npm/_logs/2022-06-18T04_30_19_440Z-debug-0.log</span><br></pre></td></tr></table></figure>
+<p>尝试解决</p>
+<p>错误又回去了 呜呜 先不解决吧</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/06/%E3%80%90Mac%E3%80%91%E4%BD%BF%E7%94%A8say%E5%88%B6%E4%BD%9C%E9%9F%B3%E9%A2%91/" rel="prev" title="【Mac】使用say制作音频">
+                  <i class="fa fa-chevron-left"></i> 【Mac】使用say制作音频
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8BGO-SDK%E7%89%88education/" rel="next" title="【Fabric】教程之GO-SDK版education">
+                  【Fabric】教程之GO-SDK版education <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Monk</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
