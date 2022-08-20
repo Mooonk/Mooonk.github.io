@@ -6,42 +6,42 @@
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/blog/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zhang_monk.gitee.io","root":"/blog/","images":"/blog/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="1. 终端进入mysql1mysql -uroot -p 会让输入密码，输入安装时设置的密码即可，界面如下：  2. 创建数据库创建一个名为test的数据库进行测试 1create database test; 注意；不能少 创建成功  查询所有数据库，可以看到test已经成功创建 1show databases;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【MySQL】Mac下MySQL的使用">
-<meta property="og:url" content="http://example.com/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="http://zhang_monk.gitee.io/blog/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1. 终端进入mysql1mysql -uroot -p 会让输入密码，输入安装时设置的密码即可，界面如下：  2. 创建数据库创建一个名为test的数据库进行测试 1create database test; 注意；不能少 创建成功  查询所有数据库，可以看到test已经成功创建 1show databases;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/mysql-2.1.png">
-<meta property="og:image" content="http://example.com/img/mysql-2.2.png">
-<meta property="og:image" content="http://example.com/img/mysql-2.3.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/img/mysql-2.1.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/img/mysql-2.2.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/img/mysql-2.3.png">
 <meta property="article:published_time" content="2022-07-01T05:14:31.000Z">
 <meta property="article:modified_time" content="2022-07-01T05:27:04.355Z">
 <meta property="article:author" content="Monk">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/mysql-2.1.png">
+<meta name="twitter:image" content="http://zhang_monk.gitee.io/img/mysql-2.1.png">
 
 
-<link rel="canonical" href="http://example.com/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="http://zhang_monk.gitee.io/blog/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/","path":"2022/07/01/【MySQL】Mac下MySQL的使用/","title":"【MySQL】Mac下MySQL的使用"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://zhang_monk.gitee.io/blog/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/","path":"2022/07/01/【MySQL】Mac下MySQL的使用/","title":"【MySQL】Mac下MySQL的使用"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>【MySQL】Mac下MySQL的使用 | Hexo</title>
@@ -52,7 +52,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
+    <link rel="stylesheet" href="/blog/css/noscript.css">
   </noscript>
 </head>
 
@@ -69,7 +69,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Hexo</p>
       <i class="logo-line"></i>
@@ -124,7 +124,7 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
@@ -165,10 +165,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://zhang_monk.gitee.io/blog/2022/07/01/%E3%80%90MySQL%E3%80%91Mac%E4%B8%8BMySQL%E7%9A%84%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="Monk">
     </span>
 
@@ -210,15 +210,15 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="1-终端进入mysql"><a href="#1-终端进入mysql" class="headerlink" title="1. 终端进入mysql"></a>1. 终端进入mysql</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
 <p>会让输入密码，输入安装时设置的密码即可，界面如下：</p>
-<p><img src="/../img/mysql-2.1.png"></p>
+<p><img src="/blog/../img/mysql-2.1.png"></p>
 <h1 id="2-创建数据库"><a href="#2-创建数据库" class="headerlink" title="2. 创建数据库"></a>2. 创建数据库</h1><p>创建一个名为test的数据库进行测试</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database <span class="built_in">test</span>;</span><br></pre></td></tr></table></figure>
 <p>注意；不能少</p>
 <p>创建成功</p>
-<p><img src="/../img/mysql-2.2.png"></p>
+<p><img src="/blog/../img/mysql-2.2.png"></p>
 <p>查询所有数据库，可以看到test已经成功创建</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
-<p><img src="/../img/mysql-2.3.png"></p>
+<p><img src="/blog/../img/mysql-2.3.png"></p>
 
     </div>
 
@@ -232,12 +232,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/06/29/%E3%80%90MySQL%E3%80%91MacM1%E4%B8%8B%E7%9A%84MySQL%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="prev" title="【MySQL】MacM1下的MySQL安装与配置">
+                <a href="/blog/2022/06/29/%E3%80%90MySQL%E3%80%91MacM1%E4%B8%8B%E7%9A%84MySQL%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="prev" title="【MySQL】MacM1下的MySQL安装与配置">
                   <i class="fa fa-chevron-left"></i> 【MySQL】MacM1下的MySQL安装与配置
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" rel="next" title="【Mac】各种环境问题解决">
+                <a href="/blog/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" rel="next" title="【Mac】各种环境问题解决">
                   【Mac】各种环境问题解决 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -274,7 +274,7 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
 
