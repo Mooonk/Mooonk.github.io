@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1. npm相关1.1 time out类型 运行 npm install时出现如下错误：  1234567891011npm ERR! code ERR_SOCKET_TIMEOUTnpm ERR! errno ERR_SOCKET_TIMEOUTnpm ERR! network Invalid response body while trying to fetch https:&#x2F;&#x2F;regist">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://zhang_monk.gitee.io/img/bug-1.1.png">
-<meta property="og:image" content="http://zhang_monk.gitee.io/img/bug-1.2.png">
-<meta property="og:image" content="http://zhang_monk.gitee.io/img/bug-1.3.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/blog/blog/2022/07/01/img/bug-1.1.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/blog/blog/2022/07/01/img/bug-1.2.png">
+<meta property="og:image" content="http://zhang_monk.gitee.io/blog/blog/2022/07/01/img/bug-1.3.png">
 <meta property="article:published_time" content="2022-07-01T06:55:42.000Z">
 <meta property="article:modified_time" content="2022-08-20T11:09:09.641Z">
 <meta property="article:author" content="Monk">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zhang_monk.gitee.io/img/bug-1.1.png">
+<meta name="twitter:image" content="http://zhang_monk.gitee.io/blog/blog/2022/07/01/img/bug-1.1.png">
 
 
 <link rel="canonical" href="http://zhang_monk.gitee.io/blog/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">
@@ -218,17 +218,17 @@
 <li>运行 npm install时出现如下错误：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ERR_SOCKET_TIMEOUT</span><br><span class="line">npm ERR! errno ERR_SOCKET_TIMEOUT</span><br><span class="line">npm ERR! network Invalid response body <span class="keyword">while</span> trying to fetch https://registry.npmmirror.com/gatsby-core-utils: Socket <span class="built_in">timeout</span></span><br><span class="line">npm ERR! network This is a problem related to network connectivity.</span><br><span class="line">npm ERR! network In most cases you are behind a proxy or have bad network settings.</span><br><span class="line">npm ERR! network</span><br><span class="line">npm ERR! network If you are behind a proxy, please make sure that the</span><br><span class="line">npm ERR! network <span class="string">&#x27;proxy&#x27;</span> config is <span class="built_in">set</span> properly.  See: <span class="string">&#x27;npm help config&#x27;</span></span><br><span class="line"></span><br><span class="line">npm ERR! A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>:</span><br><span class="line">npm ERR!     /Users/monk/.npm/_logs/2022-07-01T06_40_05_501Z-debug-0.log</span><br></pre></td></tr></table></figure>
-<p><img src="/blog/../img/bug-1.1.png"></p>
+<p><img src="/blog/blog/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/../img/bug-1.1.png"></p>
 <p>这里可以看到是gatsby-core-utils超时，所以我们单独下载这个包</p>
 <p>运行如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install gatsby-core-utils</span><br></pre></td></tr></table></figure>
 
 <p>这时出现新的错误，这个错误的思路参考了这篇<a target="_blank" rel="noopener" href="http://www.javashuo.com/article/p-adshdavw-dz.html">链接</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ETARGET</span><br><span class="line">npm ERR! notarget No matching version found <span class="keyword">for</span> @jest/test-utils@^26.6.2.</span><br><span class="line">npm ERR! notarget In most cases you or one of your dependencies are requesting</span><br><span class="line">npm ERR! notarget a package version that doesn<span class="string">&#x27;t exist.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">npm ERR! A complete log of this run can be found in:</span></span><br><span class="line"><span class="string">npm ERR!     /Users/monk/.npm/_logs/2022-07-01T07_05_36_243Z-debug-0.log</span></span><br></pre></td></tr></table></figure>
-<p><img src="/blog/../img/bug-1.2.png"></p>
+<p><img src="/blog/blog/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/../img/bug-1.2.png"></p>
 <p>这里可以看到， @jest&#x2F;test-utils包版本没有，因此我们查看一下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm view @jest/test-utils</span><br></pre></td></tr></table></figure>
-<p><img src="/blog/../img/bug-1.3.png"></p>
+<p><img src="/blog/blog/2022/07/01/%E3%80%90Mac%E3%80%91%E5%90%84%E7%A7%8D%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/../img/bug-1.3.png"></p>
 <p>然后手动安装即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://registry.npmmirror.com/@jest/test-utils/-/test-utils-0.0.0.tgz</span><br></pre></td></tr></table></figure>
 <p>正常情况下遇到此类问题的步骤到这里就是可以成功解决了的，但是这个包因为是之前瞎捣鼓（感觉是这个包的问题） 导致现在不管安装什么都会报这个错，所以需要对本地缓存进行一次清理</p>
