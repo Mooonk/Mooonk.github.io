@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="框架搭建1.整体目录整个目录可以分为三个部分，即fabric相关，app相关；其中app分为server后端和web前端。 故创建如下文件夹：fixture、app&#x2F;server和app&#x2F;web 1.1 fabric相关（fixture）这一部分参考自己搭建网络 其中，fabric部分可以：  仅保留配置文件、创世块等文件，不需要写网络启动脚本。完全通过go-sdk启动 也可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Fabric】教程之使用GO-SDK">
+<meta property="og:url" content="http://example.com/2022/08/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8GO-SDK/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="框架搭建1.整体目录整个目录可以分为三个部分，即fabric相关，app相关；其中app分为server后端和web前端。 故创建如下文件夹：fixture、app&#x2F;server和app&#x2F;web 1.1 fabric相关（fixture）这一部分参考自己搭建网络 其中，fabric部分可以：  仅保留配置文件、创世块等文件，不需要写网络启动脚本。完全通过go-sdk启动 也可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/fabric-1.1.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.2.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.3.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.4.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.5.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.6.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.7.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.8.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.8.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.10.png">
+<meta property="og:image" content="http://example.com/img/fabric-1.11.png">
+<meta property="article:published_time" content="2022-08-18T09:32:53.000Z">
+<meta property="article:modified_time" content="2022-08-20T11:27:09.551Z">
+<meta property="article:author" content="Monk">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/fabric-1.1.png">
+
+
+<link rel="canonical" href="http://example.com/2022/08/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8GO-SDK/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/08/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8GO-SDK/","path":"2022/08/18/【Fabric】教程之使用GO-SDK/","title":"【Fabric】教程之使用GO-SDK"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【Fabric】教程之使用GO-SDK | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">框架搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B4%E4%BD%93%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.整体目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-fabric%E7%9B%B8%E5%85%B3%EF%BC%88fixture%EF%BC%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 fabric相关（fixture）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-cryptogen"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1. cryptogen</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-configtx"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.configtx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BApeer%E8%8A%82%E7%82%B9%EF%BC%88%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9%E5%90%8C%E7%90%86%EF%BC%89"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">3.创建peer节点（其他节点同理）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-server%E7%9B%B8%E5%85%B3%EF%BC%88app-x2F-server%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 server相关（app&#x2F;server）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-fabric-go-sdk"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.2.1 fabric-go-sdk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-router"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">1.2.2 router</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Monk</p>
+  <div class="site-description" itemprop="description">Monk的笔记记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8GO-SDK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Monk">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="Monk的笔记记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【Fabric】教程之使用GO-SDK | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Fabric】教程之使用GO-SDK
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-18 17:32:53" itemprop="dateCreated datePublished" datetime="2022-08-18T17:32:53+08:00">2022-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-20 19:27:09" itemprop="dateModified" datetime="2022-08-20T19:27:09+08:00">2022-08-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="框架搭建"><a href="#框架搭建" class="headerlink" title="框架搭建"></a>框架搭建</h1><h2 id="1-整体目录"><a href="#1-整体目录" class="headerlink" title="1.整体目录"></a>1.整体目录</h2><p>整个目录可以分为三个部分，即fabric相关，app相关；其中app分为server后端和web前端。</p>
+<p>故创建如下文件夹：fixture、app&#x2F;server和app&#x2F;web</p>
+<h3 id="1-1-fabric相关（fixture）"><a href="#1-1-fabric相关（fixture）" class="headerlink" title="1.1 fabric相关（fixture）"></a>1.1 fabric相关（fixture）</h3><p>这一部分参考<a href="https://">自己搭建网络</a></p>
+<p>其中，fabric部分可以：</p>
+<ol>
+<li>仅保留配置文件、创世块等文件，不需要写网络启动脚本。完全通过go-sdk启动</li>
+<li>也可以像正常网络一样启动，然后go-sdk仅调用</li>
+</ol>
+<p>需要注意的是，第一种方式只需要生成一次创世块等等文件，后续就不要再重新生成了，也无需利用fabric创建通道部署链码等，这些操作都交给sdk；而第二种方式更倾向于一次完整的fabric网络启动，所有的步骤都由fabric脚本完成，而sdk仅负责调用链码，不负责启动fabric网络。</p>
+<p>这两种分类是我自己总结出来的，不是非常标准。目前在众多教程中标准的应该是第一种，整个周期比较完整，接口较多，因此这篇教程针对于第一种方式进行一次详细的解释，两种方法是相通的，后续看情况在写第二种方式。</p>
+<h4 id="1-cryptogen"><a href="#1-cryptogen" class="headerlink" title="1. cryptogen"></a>1. cryptogen</h4><p>编写配置文件crypto-config.yaml</p>
+<p>这里采用直接拷贝已有的配置文件，因此不需要重新写。</p>
+<p>生成配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cryptogen generate --config=./crypto-config.yaml --output=<span class="string">&quot;organizations&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/fabric-1.1.png"></p>
+<p>这时会生成一个crypto-config文件夹，里面包含了所有的组织信息</p>
+<p><img src="/../img/fabric-1.2.png"></p>
+<h4 id="2-configtx"><a href="#2-configtx" class="headerlink" title="2.configtx"></a>2.configtx</h4><p>同样，可以将已有的configtx拷贝过来<br>然后对路径进行更改</p>
+<p>之后生成相关块</p>
+<ol>
+<li>生成genesis.block<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> FABRIC_CFG_PATH=<span class="variable">$&#123;PWD&#125;</span></span><br><span class="line">configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block -channelID fabric-channel</span><br></pre></td></tr></table></figure>
+<img src="/../img/fabric-1.3.png"></li>
+</ol>
+<p>目录中会多出<br><img src="/../img/fabric-1.4.png"></p>
+<ol start="2">
+<li>生成channel.tx<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel</span><br></pre></td></tr></table></figure>
+<img src="/../img/fabric-1.5.png"></li>
+</ol>
+<p>目录中会多出<br><img src="/../img/fabric-1.6.png"></p>
+<ol start="3">
+<li>生成Org1MSPanchors.tx和Org2MSPanchors.tx<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP</span><br><span class="line"></span><br><span class="line">configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="/../img/fabric-1.7.png"></p>
+<p>目录中会多出<br><img src="/../img/fabric-1.8.png"></p>
+<h4 id="3-创建peer节点（其他节点同理）"><a href="#3-创建peer节点（其他节点同理）" class="headerlink" title="3.创建peer节点（其他节点同理）"></a>3.创建peer节点（其他节点同理）</h4><p>有两种方式 一种是利用core.yaml 一种是利用docker（常用）<br>在此仅操作docker<br>因此仅编写docker-compose.yaml<br>我选择了copy test-network目录下的docker-compose-test文件<br>但是注意！ 需要把所有路径换为自己的路径</p>
+<ul>
+<li>3.1 开始启动网络</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br><span class="line"># 上面这条命令需要在docker.yaml路径下，如果不想在该路径下执行，则应该在命令中标注路径，即利用-f参数</span><br><span class="line"># docker-compose -f ./docker/docker-compose-net.yaml up -d</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../img/fabric-1.8.png"></p>
+<p>本地目录此时不会多出相关的东西。</p>
+<p>这时，就可以不再操作fabric了，后续的创建通道、部署链码等都可以使用sdk来解决。</p>
+<h3 id="1-2-server相关（app-x2F-server）"><a href="#1-2-server相关（app-x2F-server）" class="headerlink" title="1.2 server相关（app&#x2F;server）"></a>1.2 server相关（app&#x2F;server）</h3><h4 id="1-2-1-fabric-go-sdk"><a href="#1-2-1-fabric-go-sdk" class="headerlink" title="1.2.1 fabric-go-sdk"></a>1.2.1 fabric-go-sdk</h4><p>首先是sdk的使用。</p>
+<p>顾名思义，sdk是后端调用的接口，所以首先建如下目录：</p>
+<p><img src="/../img/fabric-1.10.png"></p>
+<p>其中，sdkInit是负责连接fabric的代码；router是后端部署、对应接口的代码；models是存放数据结构的代码；api是接口具体实现的代码。main.go则是启动后端的代码;config.yaml是fabric的相关配置信息。</p>
+<ol>
+<li>config.yaml</li>
+</ol>
+<p>这个文件一般都是有模板的，前期只需要根据自己的fabric配置进行更改即可，要注意节点名称、路径、通道名称等问题即可。</p>
+<ol start="2">
+<li>sdkInit。</li>
+</ol>
+<p>这里可以直接放入写好的代码，一般sdk不怎么需要大的改动。</p>
+<p>整个调用过程如下：</p>
+<p>2.1. setup</p>
+<p>2.2. create channel and join</p>
+<p>2.3. create chaincode lifecycle</p>
+<p>2.4. invoke chaincode set status</p>
+<p>这些的逻辑就是正常启动网络的逻辑，很好理解。</p>
+<p>按照此逻辑编写main.go。</p>
+<p>（如果想要了解sdk的原理可以上网自己搜索一下，很多讲原理的）</p>
+<h4 id="1-2-2-router"><a href="#1-2-2-router" class="headerlink" title="1.2.2 router"></a>1.2.2 router</h4><p>写好sdk后，下一步就是写router，这个有点后端基础的同学应该都差不多能看懂，可以参照很多基础教程，这里给一个<a target="_blank" rel="noopener" href="https://www.h5w3.com/235150.html">非常新新手的教程</a>，这个教程中的handlers就是我的api&#x2F;v1这些。</p>
+<p>这里需要注意的是，router中只是声明了有哪些接口，方便前端调用，但是具体的api实现应该在api&#x2F;v1中实现。</p>
+<p>之后只需要在main.go中调用router.init()即可</p>
+<p>至此，整个后端就ok了.</p>
+<p>终端会显示如图：</p>
+<p><img src="/../img/fabric-1.11.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/04/%E3%80%90view%E3%80%91%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="prev" title="【view】使用教程">
+                  <i class="fa fa-chevron-left"></i> 【view】使用教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Monk</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
