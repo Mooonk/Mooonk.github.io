@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -148,6 +148,226 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zhang_monk.gitee.io/blog/2022/06/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E8%BF%90%E8%A1%8CGO-SDK%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Monk">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="Monk的笔记记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2022/06/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8B%E8%BF%90%E8%A1%8CGO-SDK%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">【Fabric】教程之运行GO-SDK教程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-18 15:03:03" itemprop="dateCreated datePublished" datetime="2022-06-18T15:03:03+08:00">2022-06-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-18 17:31:16" itemprop="dateModified" datetime="2022-08-18T17:31:16+08:00">2022-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>这个go-sdk是别人写的 不是官方的</p>
+<h3 id="拉取项目"><a href="#拉取项目" class="headerlink" title="拉取项目"></a>拉取项目</h3><p>进入<code>GOPATH/src</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd $GOPATH/src &amp;&amp; git clone https://github.com/sxguan/fabric-go-sdk.git</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ./fabric-go-sdk</span><br><span class="line"><span class="built_in">cd</span> fixtures &amp;&amp; docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .. &amp;&amp; go build &amp;&amp; ./fabric-go-sdk</span><br></pre></td></tr></table></figure>
+<p>这个时候会出现找不到端口 一般在&#x2F;etc&#x2F;hosts里加127.0.0.1就行 但是不知道为啥我的电脑不可以 研究一下</p>
+<p>错误信息</p>
+<blockquote>
+<blockquote>
+<p>Create channel and join error: Org1 peers failed to JoinChannel: join channel failed: SendProposal failed: Transaction processing for endorser [peer1.org1.example.com:9051]: Endorser Client Status Code: (2) CONNECTION_FAILED. Description: dialing connection on target [peer1.org1.example.com:9051]: connection is in TRANSIENT_FAILURE</p>
+</blockquote>
+</blockquote>
+<p>找了好久！找到了！端口号不对</p>
+<p>应该在fabric-go-sdk&#x2F;config.yaml文件中进行修改</p>
+<p>将peer1.org1.example.com:9051改成自己docker的端口号，这里我的是7151</p>
+<p>这样就可以了！</p>
+<h3 id="项目组织节点的更改"><a href="#项目组织节点的更改" class="headerlink" title="项目组织节点的更改"></a>项目组织节点的更改</h3><p>这里如果希望增加组织和节点时，除了需要进行fixtures&#x2F;docker-compose.yaml文件的修改外，还应需改fabric-go-sdk&#x2F;config.yaml，这个文件中的基础知识可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/sunningzhzh/article/details/123804167">这篇文章</a></p>
+<p>除了cilent相关内容不需要加，其他的均增加我们要额外增加的节点组织信息。这里我生成的是双组织双节点。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">client:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">organization:</span> <span class="string">org1</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">logging:</span></span><br><span class="line">    <span class="attr">level:</span> <span class="string">info</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cryptoconfig:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">credentialStore:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&quot;/tmp/state-store&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">cryptoStore:</span></span><br><span class="line">      <span class="comment"># Specific to the underlying KeyValueStore that backs the crypto key store.</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/tmp/msp</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">BCCSP:</span></span><br><span class="line">    <span class="attr">security:</span></span><br><span class="line">     <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">     <span class="attr">default:</span></span><br><span class="line">      <span class="attr">provider:</span> <span class="string">&quot;SW&quot;</span></span><br><span class="line">     <span class="attr">hashAlgorithm:</span> <span class="string">&quot;SHA2&quot;</span></span><br><span class="line">     <span class="attr">softVerify:</span> <span class="literal">true</span></span><br><span class="line">     <span class="attr">level:</span> <span class="number">256</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tlsCerts:</span></span><br><span class="line">    <span class="comment"># [Optional]. Use system certificate pool when connecting to peers, orderers (for negotiating TLS) Default: false</span></span><br><span class="line">    <span class="attr">systemCertPool:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># [Optional]. Client key and cert for TLS handshake with peers and orderers</span></span><br><span class="line">    <span class="attr">client:</span></span><br><span class="line">      <span class="attr">key:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.key</span></span><br><span class="line">      <span class="attr">cert:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/tls/client.crt</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">channels:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># multi-org test channel</span></span><br><span class="line">  <span class="attr">mychannel:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="attr">peers:</span></span><br><span class="line">      <span class="attr">peer0.org1.example.com:</span></span><br><span class="line">        <span class="attr">endorsingPeer:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">chaincodeQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ledgerQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">eventSource:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="attr">peer1.org1.example.com:</span></span><br><span class="line">        <span class="attr">endorsingPeer:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">chaincodeQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ledgerQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">eventSource:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="attr">peer0.org2.example.com:</span></span><br><span class="line">        <span class="attr">endorsingPeer:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">chaincodeQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ledgerQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">eventSource:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="attr">peer1.org2.example.com:</span></span><br><span class="line">        <span class="attr">endorsingPeer:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">chaincodeQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ledgerQuery:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">eventSource:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">policies:</span></span><br><span class="line">      <span class="attr">queryChannelConfig:</span></span><br><span class="line">        <span class="attr">minResponses:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">maxTargets:</span> <span class="number">1</span></span><br><span class="line">        <span class="attr">retryOpts:</span></span><br><span class="line">          <span class="attr">attempts:</span> <span class="number">5</span></span><br><span class="line">          <span class="attr">initialBackoff:</span> <span class="string">500ms</span></span><br><span class="line">          <span class="attr">maxBackoff:</span> <span class="string">5s</span></span><br><span class="line">          <span class="attr">backoffFactor:</span> <span class="number">2.0</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># list of participating organizations in this network</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="attr">organizations:</span></span><br><span class="line">  <span class="attr">org1:</span></span><br><span class="line">    <span class="attr">mspid:</span> <span class="string">Org1MSP</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># This org&#x27;s MSP store (absolute path or relative to client.cryptoconfig)</span></span><br><span class="line">    <span class="attr">cryptoPath:</span>  <span class="string">peerOrganizations/org1.example.com/users/&#123;username&#125;@org1.example.com/msp</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">peers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">peer0.org1.example.com</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">peer1.org1.example.com</span></span><br><span class="line">  <span class="attr">org2:</span></span><br><span class="line">    <span class="attr">mspid:</span> <span class="string">Org2MSP</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># This org&#x27;s MSP store (absolute path or relative to client.cryptoconfig)</span></span><br><span class="line">    <span class="attr">cryptoPath:</span>  <span class="string">peerOrganizations/org2.example.com/users/&#123;username&#125;@org2.example.com/msp</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">peers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">peer0.org2.example.com</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">peer1.org2.example.com</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based</span></span><br><span class="line">    <span class="comment"># network. Typically certificates provisioning is done in a separate process outside of the</span></span><br><span class="line">    <span class="comment"># runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for</span></span><br><span class="line">    <span class="comment"># dynamic certificate management (enroll, revoke, re-enroll). The following section is only for</span></span><br><span class="line">    <span class="comment"># Fabric-CA servers.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># the profile will contain public information about organizations other than the one it belongs to.</span></span><br><span class="line">  <span class="comment"># These are necessary information to make transaction lifecycles work, including MSP IDs and</span></span><br><span class="line">  <span class="comment"># peers with a public URL to send transaction proposals. The file will not contain private</span></span><br><span class="line">  <span class="comment"># information reserved for members of the organization, such as admin key and certificate,</span></span><br><span class="line">  <span class="comment"># fabric-ca registrar enroll ID and secret, etc.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Orderer Org name</span></span><br><span class="line">  <span class="attr">ordererorg:</span></span><br><span class="line">      <span class="comment"># Membership Service Provider ID for this organization</span></span><br><span class="line">      <span class="attr">mspID:</span> <span class="string">OrdererMSP</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># Needed to load users crypto keys and certs for this org (absolute path or relative to global crypto path, DEV mode)</span></span><br><span class="line">      <span class="attr">cryptoPath:</span> <span class="string">ordererOrganizations/example.com/users/&#123;username&#125;@example.com/msp</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># List of orderers to send transaction and channel create/update requests to. For the time</span></span><br><span class="line"><span class="comment"># being only one orderer is needed. If more than one is defined, which one get used by the</span></span><br><span class="line"><span class="comment"># SDK is implementation specific. Consult each SDK&#x27;s documentation for its handling of orderers.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="attr">orderers:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="attr">orderer.example.com:</span></span><br><span class="line">    <span class="comment"># [Optional] Default: Infer from hostname</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">orderer.example.com:7050</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># these are standard properties defined by the gRPC library</span></span><br><span class="line">    <span class="comment"># they will be passed in as-is to gRPC client constructor</span></span><br><span class="line">    <span class="attr">grpcOptions:</span></span><br><span class="line">      <span class="attr">ssl-target-name-override:</span> <span class="string">orderer.example.com</span></span><br><span class="line">      <span class="comment"># These parameters should be set in coordination with the keepalive policy on the server,</span></span><br><span class="line">      <span class="comment"># as incompatible settings can result in closing of connection.</span></span><br><span class="line">      <span class="comment"># When duration of the &#x27;keep-alive-time&#x27; is set to 0 or less the keep alive client parameters are disabled</span></span><br><span class="line">      <span class="attr">keep-alive-time:</span> <span class="string">0s</span></span><br><span class="line">      <span class="attr">keep-alive-timeout:</span> <span class="string">20s</span></span><br><span class="line">      <span class="attr">keep-alive-permit:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">fail-fast:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs</span></span><br><span class="line">      <span class="attr">allow-insecure:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">tlsCACerts:</span></span><br><span class="line">      <span class="comment"># Certificate location absolute path</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># List of peers to send various requests to, including endorsement, query</span></span><br><span class="line"><span class="comment"># and event listener registration.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="attr">peers:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="attr">peer0.org1.example.com:</span></span><br><span class="line">    <span class="comment"># this URL is used to send endorsement and query requests</span></span><br><span class="line">    <span class="comment"># [Optional] Default: Infer from hostname</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">peer0.org1.example.com:7051</span></span><br><span class="line">    <span class="attr">grpcOptions:</span></span><br><span class="line">      <span class="attr">ssl-target-name-override:</span> <span class="string">peer0.org1.example.com</span></span><br><span class="line">      <span class="comment"># These parameters should be set in coordination with the keepalive policy on the server,</span></span><br><span class="line">      <span class="comment"># as incompatible settings can result in closing of connection.</span></span><br><span class="line">      <span class="comment"># When duration of the &#x27;keep-alive-time&#x27; is set to 0 or less the keep alive client parameters are disabled</span></span><br><span class="line">      <span class="attr">keep-alive-time:</span> <span class="string">0s</span></span><br><span class="line">      <span class="attr">keep-alive-timeout:</span> <span class="string">20s</span></span><br><span class="line">      <span class="attr">keep-alive-permit:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">fail-fast:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs</span></span><br><span class="line">      <span class="attr">allow-insecure:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">#grpcOptions:</span></span><br><span class="line">    <span class="comment">#  ssl-target-name-override: peer0.org1.example.com</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">tlsCACerts:</span></span><br><span class="line">      <span class="comment"># Certificate location absolute path</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="attr">peer1.org1.example.com:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">peer1.org1.example.com:7151</span></span><br><span class="line">    <span class="comment">#grpcOptions:</span></span><br><span class="line">    <span class="comment">#  ssl-target-name-override: peer1.org1.example.com</span></span><br><span class="line">    <span class="attr">grpcOptions:</span></span><br><span class="line">      <span class="attr">ssl-target-name-override:</span> <span class="string">peer1.org1.example.com</span></span><br><span class="line">      <span class="comment"># These parameters should be set in coordination with the keepalive policy on the server,</span></span><br><span class="line">      <span class="comment"># as incompatible settings can result in closing of connection.</span></span><br><span class="line">      <span class="comment"># When duration of the &#x27;keep-alive-time&#x27; is set to 0 or less the keep alive client parameters are disabled</span></span><br><span class="line">      <span class="attr">keep-alive-time:</span> <span class="string">0s</span></span><br><span class="line">      <span class="attr">keep-alive-timeout:</span> <span class="string">20s</span></span><br><span class="line">      <span class="attr">keep-alive-permit:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">fail-fast:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs</span></span><br><span class="line">      <span class="attr">allow-insecure:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tlsCACerts:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="attr">peer0.org2.example.com:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">peer0.org2.example.com:9051</span></span><br><span class="line">    <span class="comment">#grpcOptions:</span></span><br><span class="line">    <span class="comment">#  ssl-target-name-override: peer0.org2.example.com</span></span><br><span class="line">    <span class="attr">grpcOptions:</span></span><br><span class="line">      <span class="attr">ssl-target-name-override:</span> <span class="string">peer0.org2.example.com</span></span><br><span class="line">      <span class="comment"># These parameters should be set in coordination with the keepalive policy on the server,</span></span><br><span class="line">      <span class="comment"># as incompatible settings can result in closing of connection.</span></span><br><span class="line">      <span class="comment"># When duration of the &#x27;keep-alive-time&#x27; is set to 0 or less the keep alive client parameters are disabled</span></span><br><span class="line">      <span class="attr">keep-alive-time:</span> <span class="string">0s</span></span><br><span class="line">      <span class="attr">keep-alive-timeout:</span> <span class="string">20s</span></span><br><span class="line">      <span class="attr">keep-alive-permit:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">fail-fast:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs</span></span><br><span class="line">      <span class="attr">allow-insecure:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tlsCACerts:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">peer1.org2.example.com:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">peer1.org2.example.com:9151</span></span><br><span class="line">    <span class="comment">#grpcOptions:</span></span><br><span class="line">    <span class="comment">#  ssl-target-name-override: peer1.org2.example.com</span></span><br><span class="line">    <span class="attr">grpcOptions:</span></span><br><span class="line">      <span class="attr">ssl-target-name-override:</span> <span class="string">peer1.org2.example.com</span></span><br><span class="line">      <span class="comment"># These parameters should be set in coordination with the keepalive policy on the server,</span></span><br><span class="line">      <span class="comment"># as incompatible settings can result in closing of connection.</span></span><br><span class="line">      <span class="comment"># When duration of the &#x27;keep-alive-time&#x27; is set to 0 or less the keep alive client parameters are disabled</span></span><br><span class="line">      <span class="attr">keep-alive-time:</span> <span class="string">0s</span></span><br><span class="line">      <span class="attr">keep-alive-timeout:</span> <span class="string">20s</span></span><br><span class="line">      <span class="attr">keep-alive-permit:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">fail-fast:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># allow-insecure will be taken into consideration if address has no protocol defined, if true then grpc or else grpcs</span></span><br><span class="line">      <span class="attr">allow-insecure:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">tlsCACerts:</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/Users/monk/code/go/src/fabric-go-sdk/fixtures/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows</span></span><br><span class="line"><span class="comment"># certificate management to be done via REST APIs. Application may choose to use a standard</span></span><br><span class="line"><span class="comment"># Certificate Authority instead of Fabric-CA, in which case this section would not be specified.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="attr">entityMatchers:</span></span><br><span class="line">  <span class="attr">peer:</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">pattern:</span> <span class="string">(\w+).org1.example.com:(\d+)</span></span><br><span class="line">      <span class="attr">urlSubstitutionExp:</span> <span class="string">$&#123;1&#125;.org1.example.com:$&#123;2&#125;</span></span><br><span class="line">      <span class="attr">sslTargetOverrideUrlSubstitutionExp:</span> <span class="string">$&#123;1&#125;.org1.example.com</span></span><br><span class="line">      <span class="attr">mappedHost:</span> <span class="string">peer0.org1.example.com</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">pattern:</span> <span class="string">(\w+).org2.example.com:(\d+)</span></span><br><span class="line">      <span class="attr">urlSubstitutionExp:</span> <span class="string">$&#123;1&#125;.org2.example.com:$&#123;2&#125;</span></span><br><span class="line">      <span class="attr">sslTargetOverrideUrlSubstitutionExp:</span> <span class="string">$&#123;1&#125;.org2.example.com</span></span><br><span class="line">      <span class="attr">mappedHost:</span> <span class="string">peer0.org2.example.com</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭节点"><a href="#关闭节点" class="headerlink" title="关闭节点"></a>关闭节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> fixtures &amp;&amp; docker-compose down</span><br><span class="line">docker volume prune</span><br><span class="line"><span class="comment"># docker-compose up -d</span></span><br><span class="line"><span class="comment"># cd .. &amp;&amp; go build &amp;&amp; ./fabric-go-sdk</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://zhang_monk.gitee.io/blog/2022/06/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8BGO-SDK%E7%89%88education/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Monk">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="Monk的笔记记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2022/06/18/%E3%80%90Fabric%E3%80%91%E6%95%99%E7%A8%8B%E4%B9%8BGO-SDK%E7%89%88education/" class="post-title-link" itemprop="url">【Fabric】教程之GO-SDK版education</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-18 15:02:52" itemprop="dateCreated datePublished" datetime="2022-06-18T15:02:52+08:00">2022-06-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-29 18:23:23" itemprop="dateModified" datetime="2022-06-29T18:23:23+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在原基础上修改为双组织双节点的组织结构</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1-修改配置文件"><a href="#1-修改配置文件" class="headerlink" title="1.修改配置文件"></a>1.修改配置文件</h3><p>和GO-SDK那篇一样</p>
+<!-- TODO： 这里可以加一个自动跳转 -->
+
+<p>之后需要在main.go文件中的org信息里增加组织信息</p>
+<h3 id="2-运行"><a href="#2-运行" class="headerlink" title="2. 运行"></a>2. 运行</h3><p>添加依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> education &amp;&amp; go mod tidy</span><br></pre></td></tr></table></figure>
+<p>运行项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./clean_docker.sh</span><br></pre></td></tr></table></figure>
+
+<p>其间遇到了这个错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Create channel and join error: Create channel error: SaveChannel for anchor org Org2 error: create channel failed: create channel failed: SendEnvelope failed: calling orderer &#x27;orderer.example.com:7050&#x27; failed: Orderer Server Status Code: (400) BAD_REQUEST.Description: error applying config update to existing channel &#x27;mychannel&#x27;: error authorizing update: error validating ReadSet: proposed update requires that key [Group]  /Channel/Application/Org1MSP be at version 0, but it is currently at version 1</span><br></pre></td></tr></table></figure>
+<p>有说是因为之前运行过的原因，但是删除了也没解决</p>
+<p>找到原因了 原来是在main中写组织信息的时候不小心把组织2MSP信息写成组织1了</p>
+<p>在<code>127.0.0.1:9000</code>进行访问<br>关闭项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> fixtures &amp;&amp; docker-compose down</span><br><span class="line">docker volume prune</span><br><span class="line"><span class="comment"># cd .. &amp;&amp; go mod tidy</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h2><h3 id="chainCode"><a href="#chainCode" class="headerlink" title="chainCode"></a>chainCode</h3><p>就是单纯的链码，这里可以更换为我的访问控制</p>
+<h3 id="main-go"><a href="#main-go" class="headerlink" title="main.go"></a>main.go</h3><p>main作为整个项目启动的主函数，里面分为了几个部分</p>
+<h4 id="1-fabric网络相关"><a href="#1-fabric网络相关" class="headerlink" title="1. fabric网络相关"></a>1. fabric网络相关</h4><h5 id="1-1-初始化信息"><a href="#1-1-初始化信息" class="headerlink" title="1.1 初始化信息"></a>1.1 初始化信息</h5><p>首先是组织信息，即org，在这里因为我设计了两个组织，因此组织信息要写两个，注意不要把MSP信息写错</p>
+<p>然后按照sdk的info写一个info参数，方便后续使用</p>
+<p>TODO： 后期如果要增加组织节点，需要分为以下几步：</p>
+<ol>
+<li>在docker-compose、crypto-config和configtx三个文件里增加</li>
+<li>然后重新生成创世块和channel块</li>
+<li>在config中增加组织信息</li>
+<li>在main函数中增加组织信息</li>
+</ol>
+<p>PS： 这里官方有自动化文档 但是因为这个框架不是官方的 是更改过的 所以到时候可能需要更改一下 后期可以写一个自动化执行。</p>
+<h5 id="1-2-网络启动"><a href="#1-2-网络启动" class="headerlink" title="1.2 网络启动"></a>1.2 网络启动</h5><ol>
+<li>setup</li>
+<li>create channel and join</li>
+<li>create chaincode lifecycle</li>
+<li>invoke chaincode set status<br>这些的逻辑就是正常启动网络的逻辑 故不过多赘述</li>
+</ol>
+<p>至此，sdkinit结束。</p>
+<p>在Setup阶段，sdk.Context负责创建<strong>资源客户端</strong>，这个是对Hyperledger fabric网络进行管理操作：打包链码、安装链码、实例化链码等。</p>
+<p>这一部分也没啥知识点 fabric的基础打好这个就跟着懂了</p>
+<h4 id="2-app"><a href="#2-app" class="headerlink" title="2. app"></a>2. app</h4><p>这里就需要针对不同的项目编写不同的代码 但所有逻辑一致</p>
+<h5 id="2-1-service初始化和创建"><a href="#2-1-service初始化和创建" class="headerlink" title="2.1 service初始化和创建"></a>2.1 service初始化和创建</h5><p>InitService负责创建<strong>通道客户端</strong>，这个客户端是对链码进行调用和查询。</p>
+<p>使用sdk.ChannelContext创建channelProvider，需要指定channelID和用户User1，然后通过channel.New创建通道客户端，这个通道客户端就是调用channelID对应channel上链码的channel client。</p>
+<p>（domain.go文件负责实现）</p>
+<p>PS：这个项目中 service&#x2F;eduService.go负责提供链码调用接口 和用户绑定没关系，</p>
+<h5 id="2-2-启动app"><a href="#2-2-启动app" class="headerlink" title="2.2 启动app"></a>2.2 启动app</h5><p>把刚刚创建好的客户端和app绑定，然后启动这个app（在web&#x2F;webServer中实现路由和启动）</p>
+<p>至此一个项目的逻辑完成 具体的接口和链码可以由开发者自行决定</p>
+<p>这个项目的功能较为简单 不展开讲述</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
